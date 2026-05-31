@@ -1,0 +1,24 @@
+/* Oddiy Batafsil tugma */
+.btn-detail-custom {
+    display: inline-block;
+    padding: 10px 20px;       /* qulay o‘lcham */
+    background-color: #3267ec; /* sodda ko‘k rang */
+    color: #fff;              /* matn oq rangda */
+    text-decoration: none;    /* osti chizilmasin */
+    font-weight: 600;
+    border-radius: 6px;       /* eng oddiy yumaloq burchak */
+    border: none;             /* chegara yo‘q */
+    text-align: center;
+    cursor: pointer;          /* sichqoncha kursori */
+    transition: background 0.2s ease;
+}
+
+/* Hover effekti soddalashtirilgan */
+.btn-detail-custom:hover {
+    background-color: #4662bd; /* biroz qorong‘iroq ko‘k */
+}
+
+/* Fokus effekti */
+.btn-detail-custom:focus {
+    outline: none;
+}

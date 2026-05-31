@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ doc.name }}{% endblock %}
+
+{% block content %}
+{% load static %}
+{% load custom_filters %}  {# dotcomma filter ni yuklash #}
+
+<link rel="stylesheet" href="{% static 'documents/css/detail.css' %}">
+
+<div class="detail-container">
+    <h1 class="detail-title">{{ doc.name }}</h1>
+    <p class="detail-meta">Created at: {{ doc.time_create }}</p>
+    <p class="detail-meta">Price: {{ doc.price|dotcomma }} so'm</p>  {# dotcomma filter #}
+    {% if doc.image %}
+        <img class="detail-img" src="{{ doc.image.url }}">
+    {% endif %}
+    <p class="detail-description">{{ doc.description }}</p>
+    <a href="{% url 'home' %}" class="btn-detail-detail">Back to documents</a>
+</div>
+{% endblock %}

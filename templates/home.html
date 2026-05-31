@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% load static %}
+{% load custom_filters %}
+
+<link rel="stylesheet" href="{% static 'css/custom_btn.css' %}">
+
+<div class="container">
+    {% for cat in categories %}
+        {% if cat.slug == cat_selected and documents %}
+            <h1 style="margin-bottom: 20px;">Postavshik: <span style="color: #3267ec;">{{ cat.name }}</span></h1>
+        {% endif %}
+    {% endfor %}
+
+    <div class="documents">
+        {% for doc in documents %}
+           <div class="doc-card">
+                {% if doc.image %}
+                    <img src="{{ doc.image.url }}" class="doc-img" alt="{{ doc.name }}">
+                {% else %}
+                    <div class="doc-img" style="background: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #999;">Rasm mavjud emas</div>
+                {% endif %}
+
+                <h3>{{ doc.name }}</h3>
+                <p>📅 {{ doc.time_create|date:"d.m.Y" }}</p>
+                <p>🏢 {{ doc.category.name }}</p>
+                <p class="price-tag">{{ doc.price|dotcomma }} so'm</p>
+
+                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 5px;">
+                    <a href="{{ doc.get_absolute_url }}" class="btn-custom btn-detail">Batafsil</a>
+                    <a href="{{ doc.get_absolute_url1 }}" 
+   class="btn-custom btn-delete-red" 
+   onclick="return confirm('Siz rostdan ham ushbu hujjatni o\'chirmoqchimisiz?')">
+   O'chirish
+</a>
+
+                </div>
+            </div>
+        {% empty %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% if page_obj.has_other_pages %}
+    {% for p in paginator.page_range %}
+        {% if page_obj.number == p %}
+            <strong><li>{{ p }}</li></strong>
+        {% else %}
+            <a href="?page={{ p }}">{{ p }}</a>
+        {% endif %}
+    {% empty %}
+        <h2>Iltimos avval malumot kiriting</h2>
+    {% endfor %}
+{% else %}
+    <h2>Bu sahifada malumot yuq</h2>
+{% endif %}

@@ -1,0 +1,85 @@
+/* Konteyner va kartochkalar setkasi */
+.documents {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.doc-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+}
+
+.doc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.doc-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* Tugmalar uchun umumiy uslub */
+.btn-custom {
+    display: inline-block;
+    padding: 10px 16px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    border: none;
+    margin-top: 8px;
+}
+
+/* Batafsil tugmasi (Ko'k) */
+.btn-detail {
+    background-color: #3267ec;
+    color: #fff;
+}
+
+.btn-detail:hover {
+    background-color: #2551c0;
+}
+
+/* O'chirish tugmasi (Qizil) */
+.btn-delete {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.btn-delete:hover {
+    background-color: #fca5a5;
+    color: #fff;
+}
+
+/* Ma'lumotlar stili */
+.doc-card h3 { margin: 10px 0 5px; font-size: 18px; color: #333; }
+.doc-card p { margin: 4px 0; color: #666; font-size: 14px; }
+.price-tag { font-weight: bold; color: #10b981; font-size: 16px !important; }
+
+/* O'chirish tugmasi (Yorqinroq qizil) */
+.btn-delete {
+    background-color: #ef4444; /* Asosiy qizil */
+    color: #ffffff;
+    border: 1px solid #dc2626;
+}
+
+.btn-delete:hover {
+    background-color: #dc2626; /* Sichqoncha borganda to'qroq qizil */
+    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
+}
+

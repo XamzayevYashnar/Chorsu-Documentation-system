@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Document Manager{% endblock %}</title>
+    {% load static %}
+    {% load custom_filters %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <style>
+        /* Paginator uchun maxsus stillar */
+        .pagination-wrapper {
+            margin: 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pagination {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination li a, .pagination li span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            height: 40px;
+            padding: 0 10px;
+            text-decoration: none;
+            color: #333;
+            background: #f0f2f5;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .pagination li a:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .pagination li.active span {
+            background: #007bff;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .empty-msg {
+            text-align: center;
+            padding: 50px 20px;
+            color: #666;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border: 2px dashed #ddd;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <h2 class="logo"><a href="/">DocManager</a></h2>
+        <nav class="nav">
+            <a href="/" class="nav-link">Bosh sahifa</a>
+            <a href="{% url 'addpage' %}" class="nav-link">Hujjat qo'shish</a>
+            <a href="{% url 'addcat' %}" class="nav-link">Pastavshik qo'shish</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Chiqish</a>
+        </nav>
+    </div>
+</header>
+
+{% get_cats request.user as categories %}
+
+<nav class="category-bar">
+    <div class="container">
+        <ul class="category-list" style="list-style: none; display: flex; gap: 15px; padding: 10px 0;">
+            {% if cat_selected == 0 %}
+                <li class="cat-item active"><strong>Barchasi</strong></li>
+                {% for cat in categories %}
+                    <li><a href="/?cat={{ cat.slug }}" class="cat-item">{{ cat.name }}</a></li>
+                {% endfor %}
+            {% else %}
+                <li><a href="/" class="cat-item">← Orqaga</a></li>
+                {% for cat in categories %}
+                    {% if cat.slug == cat_selected %}
+                        {% if doc %}
+                            <li><a href="/?cat={{ cat.slug }}" class="cat-item">Pastavshik: {{ cat.name }}</a></li>
+                            <li class="cat-item active"> / Hujjat: {{ doc.name }}</li>
+                        {% else %}
+                            <li class="cat-item active"><strong>Pastavshik: {{ cat.name }}</strong></li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<main class="container main-content">
+    {% block content %}
+        <!-- Bu yerda sizning jadvalingiz yoki kartochkalaringiz chiqadi -->
+    {% endblock %}
+
+    <!-- PAGINATOR QISMI -->
+    <div class="pagination-wrapper">
+        {% if page_obj.has_other_pages %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}{% if cat_selected %}&cat={{ cat_selected }}{% endif %}">«</a></li>
+                {% endif %}
+
+                {% for p in paginator.page_range %}
+                    {% if page_obj.number == p %}
+                        <li class="active"><span>{{ p }}</span></li>
+                    {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                        <li><a href="?page={{ p }}{% if cat_selected %}&cat={{ cat_selected }}{% endif %}">{{ p }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}{% if cat_selected %}&cat={{ cat_selected }}{% endif %}">»</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Yashnar Project — Hujjatlarni boshqarish tizimi</p>
+    </div>
+</footer>
+
+</body>
+</html>

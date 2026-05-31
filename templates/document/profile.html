@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Hujjatlar ro'yxati:</h3>
+
+    <ul>
+    {% for doc in page_obj %}
+        <li>
+            Hujjat ID: {{ doc.id }} - Nomi: {{ doc.name }} 
+        </li>
+    {% empty %}
+        <li>Hujjatlar mavjud emas.</li>
+    {% endfor %}
+    </ul>
+
+    <hr>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% for page_num in page_obj.paginator.page_range %}
+                {% if page_obj.number == page_num %}
+                    <b style="font-size: 20px; color: red;">{{ page_num }}</b>
+                {% else %}
+                    <a href="?page={{ page_num }}">{{ page_num }}</a>
+                {% endif %}
+            {% endfor %}
+        </span>
+    </div>
+
+{% endblock %}

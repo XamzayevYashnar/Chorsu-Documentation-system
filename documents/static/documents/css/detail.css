@@ -1,0 +1,75 @@
+/* detail.css */
+
+/* Container */
+.detail-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Title */
+.detail-title {
+    font-size: 2rem;
+    color: #1e293b;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 5px;
+}
+
+/* Meta info */
+.detail-meta {
+    font-size: 1rem;
+    color: #475569;
+    margin-bottom: 10px;
+}
+
+/* Image */
+.detail-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.detail-img:hover {
+    transform: scale(1.03);
+}
+
+/* Description */
+.detail-description {
+    font-size: 1rem;
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Button (sodda versiya) */
+.btn-detail-detail {
+    display: inline-block;
+    padding: 10px 20px;        /* qulay o‘lcham */
+    background-color: #1e293b;  /* sodda ko‘k rang */
+    color: #fff;               /* matn oq rangda */
+    text-decoration: none;     /* osti chizilmasin */
+    border-radius: 6px;        /* yumaloq burchak */
+    border: none;              /* chegara yo‘q */
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+/* Hover effekti soddalashtirilgan */
+.btn-detail-detail:hover {
+    background-color: #3b82f6; /* biroz yorqinroq ko‘k */
+}
+
+/* Fokus effekti */
+.btn-detail-detail:focus {
+    outline: none;
+}
